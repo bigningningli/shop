@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="__ADMIN__/lib/html5shiv.js"></script>
+	<script type="text/javascript" src="__ADMIN__/lib/respond.min.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/css/H-ui.admin.css" />
+	<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/Hui-iconfont/1.0.8/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/skin/default/skin.css" id="skin" />
+	<link rel="stylesheet" type="text/css" href="__ADMIN__/static/h-ui.admin/css/style.css" />
+	<!--[if IE 6]>
+	<script type="text/javascript" src="__ADMIN__/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+	<script>DD_belatedPNG.fix('*');</script>
+	<![endif]-->
+	<title>修改友情链接</title>
+	<link href="__ADMIN__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="page-container">
+	<form class="form form-horizontal" id="form-article-add" >
+
+
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="" name="name">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>URL：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="url" value="" placeholder="带http://或https://" class="input-text">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">描述：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="description" cols="" rows="" class="textarea"  placeholder="说点什么...最多输入255个字符"    ></textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				位&nbsp;于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<span class="select-box" style="width: 200px">
+				<select name="sort" class="select">
+					<option value="0" selected>此选项为第一位置</option>
+					{|volist id="sort" name="sort"|}
+                    <option value={[$sort.sort]}>{[$sort.name]}</option>
+					{|/volist|}
+				</select>
+				</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之&nbsp;后
+
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">启用：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+
+				<input type="checkbox" name="status" value="1" style="margin-top: 5px;" checked>
+
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button onclick="add()" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+				<button onClick="layer_close();" class="btn btn-default radius" style="margin-left: 60px;" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__ADMIN__/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__ADMIN__/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+	function add() {
+		$.ajax({
+			dataType: "json",
+			type: "post",
+			url:  '__URL__/add',
+			data: $('#form-article-add').serialize(),
+			success: function(data) {
+				
+				if(data.status==200) {
+					layer.msg(data.msg, {icon: 1, time: 1000});
+					setTimeout(function () {
+						window.parent.location.reload();
+					}, 1200);
+				}else{
+					layer.msg(data.msg, {icon: 5, time: 1000});
+				}
+			},
+			error: function (data) {
+				layer.msg('添加失败!',{icon:1,time:1000});
+			}
+		})
+	}
+	$(function () {
+				function GetQueryString(name)
+				{
+					var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+					var r = decodeURI(window.location.search).substr(1).match(reg);//decodeURI有效解决中文乱码问题
+					if(r!=null)return  unescape(r[2]); return null;
+				}
+				var position=GetQueryString("position");
+				$("#opt"+position).prop("selected",true);
+
+
+			}
+
+	)
+
+</script>
+</body>
+</html>

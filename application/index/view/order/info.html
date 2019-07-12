@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>订单详情</title>
+
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+		<link href="__INDEX__/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/css/orstyle.css" rel="stylesheet" type="text/css">
+
+		<script src="__INDEX__/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+		<script src="__INDEX__/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="__ADMIN__/static/comment.js"></script>
+
+	</head>
+
+	<body>
+		<!--头 -->
+		{|include file="include/top" column="[$column]"|}
+
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+
+					<div class="user-orderinfo">
+
+						<!--标题 -->
+						<div class="am-cf am-padding">
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">订单详情</strong> / <small>Order&nbsp;details</small></div>
+						</div>
+						<hr/>
+						<!--进度条-->
+						<div class="m-progress">
+							<div class="m-progress-list">
+								{|if condition="$order.status >=1"|}
+								<span class="step-1 step">
+								{|else/|}
+								<span class="step-3 step">
+								{|/if|}
+                                   <em class="u-progress-stage-bg"></em>
+                                   <i class="u-stage-icon-inner">...<em class="bg"></em></i>
+                                   <p class="stage-name">拍下商品</p>
+                                </span>
+								{|if condition="$order.status >=2"|}
+								<span class="step-2 step">
+								{|else/|}
+								<span class="step-3 step">
+								{|/if|}
+
+                                   <em class="u-progress-stage-bg"></em>
+                                   <i class="u-stage-icon-inner">2<em class="bg"></em></i>
+                                   <p class="stage-name">卖家发货</p>
+                                </span>
+								{|if condition="$order.status eq 3"|}
+								<span class="step-2 step">
+								{|else/|}
+								<span class="step-3 step">
+								{|/if|}
+                                   <em class="u-progress-stage-bg"></em>
+                                   <i class="u-stage-icon-inner">3<em class="bg"></em></i>
+                                   <p class="stage-name">确认收货</p>
+                                </span>
+								{|if condition="$order.status eq 5||$order.status eq 7"|}
+								<span class="step-1 step">
+								{|else/|}
+								<span class="step-4 step">
+								{|/if|}
+                                   <em class="u-progress-stage-bg"></em>
+                                   <i class="u-stage-icon-inner">4<em class="bg"></em></i>
+                                   <p class="stage-name">交易完成</p>
+                                </span>
+								<span class="u-progress-placeholder"></span>
+							</div>
+							<div class="u-progress-bar total-steps-2">
+								<div class="u-progress-bar-inner"></div>
+							</div>
+						</div>
+						<div class="order-infoaside">
+							<div class="order-addresslist">
+								<div class="order-address">
+									<div class="icon-add">
+									</div>
+									<p class="new-tit new-p-re">
+										<span class="new-txt">{[$address.recipient]}</span>
+										<span class="new-txt-rd2">{[$address.phone]}</span>
+									</p>
+									<div class="new-mu_l2a new-p-re">
+										<p class="new-mu_l2cw">
+											<span class="title">收货地址：</span>
+											{[$address.address]}
+										</p>
+									</div>
+								</div>
+							</div>
+								<div id="logistics" style="margin-left: 400px;">
+
+
+								</div>
+
+
+
+						</div>
+						<div class="order-infomain">
+
+							<div class="order-top">
+								<div class="th th-item">
+									<td class="td-inner">商品</td>
+								</div>
+								<div class="th th-price">
+									<td class="td-inner">单价</td>
+								</div>
+								<div class="th th-number">
+									<td class="td-inner">数量</td>
+								</div>
+
+								<div class="th th-amount">
+									<td class="td-inner">合计</td>
+								</div>
+								<div class="th th-status">
+									<td class="td-inner">交易状态</td>
+								</div>
+								<div class="th th-change">
+									<td class="td-inner">交易操作</td>
+								</div>
+							</div>
+
+							<div class="order-main">
+
+								<div class="order-status3">
+									<div class="order-title">
+										订单编号：<a href="javascript:;">{[$order.order_sn]}</a>
+										<span>更新时间：{[$order.update_time]}</span>
+									</div>
+									<div class="order-content">
+										<div class="order-left">
+											{|volist id="arr" name="orderdetails"|}
+											<ul class="item-list">
+												<li class="td td-item">
+													<div class="item-pic">
+														<a href="#" class="J_MakePoint">
+															<img src="{[$webuploader]}{[$arr.images]}" class="itempic J_ItemImg" height="80px">
+														</a>
+													</div>
+													<div class="item-info">
+														<div class="item-basic-info">
+															<a href="#">
+																<p>{[$arr.title]}</p>
+																<p class="info-little">分类:{[$arr.model]}
+															</a>
+														</div>
+													</div>
+												</li>
+												<li class="td td-price">
+													<div class="item-price">
+														{[$arr.price]}
+													</div>
+												</li>
+												<li class="td td-number">
+													<div class="item-number">
+														<span>×</span>{[$arr.num]}
+													</div>
+												</li>
+
+											</ul>
+											{|/volist|}
+
+
+										</div>
+										<div class="order-right">
+											<li class="td td-amount">
+												<div class="item-amount">
+													合计：{[$order.money]}
+													<p>含运费：<span>0.00</span></p>
+												</div>
+											</li>
+											<div class="move-right">
+												<li class="td td-status">
+													<div class="item-status">
+														{|switch name="$order.status"|}
+														{|case value="0"|}
+														<p class="Mystatus">等待买家付款</p>
+														<p class="order-info"><a href="javascript:void(0)" onclick="cancel({[$order.id]})">取消订单</a></p>{|/case|}
+														{|case value="1"|}<p class="Mystatus">买家已付款</p>
+														<p class="order-info"><a href="__URL__/info?id={[$order.id]}">订单详情</a></p><p class="order-info"><a href="__URL__/refund?id={[$order.id]}">退货/退款</a></p>{|/case|}
+														{|case value="2"|}	<p class="Mystatus">卖家已发货</p>
+														<p class="order-info"><a href="__URL__/info?id={[$order.id]}">订单详情</a></p>
+														<p class="order-info"><a href="https://www.kuaidi100.com/chaxun?nu={[$order.logistics]}" target="_blank">查看物流</a></p>
+														<p class="order-info"><a href="__URL__/refund?id={[$order.id]}">退货/退款</a></p>
+														<p class="order-info"><a href="#">延长收货</a></p>{|/case|}
+														{|case value="3"|}	<p class="Mystatus">买家已收货</p>
+														<p class="order-info"><a href="__URL__/info?id={[$order.id]}">订单详情</a></p><p class="order-info"><a href="__URL__/refund?id={[$order.id]}">退货/退款</a></p>{|/case|}
+														{|case value="4|6"|}	<p class="Mystatus">申请退换中</p>
+														<p class="order-info"><a href="orderinfo.html">申请进度</a></p>{|/case|}
+														{|default /|}	<p class="Mystatus">交易成功</p>
+														{|/switch|}
+													</div>
+												</li>
+												<li class="td td-change">
+													{|switch name="$order.status"|}
+													{|case value="0"|}<a href="__URL__/pay?id={[$order.id]}"><div class="am-btn am-btn-danger anniu">一键支付 {|/case|}
+													{|case value="1"|}<a href="javascript:layer.msg('提醒成功',{time:1000})"><div class="am-btn am-btn-danger anniu">提醒发货{|/case|}
+													{|case value="2"|}<a href="javascript:status({[$order.id]},3)"><div class="am-btn am-btn-danger anniu">确认收货{|/case|}
+													{|case value="3"|}<a href="#"><div class="am-btn am-btn-danger anniu">去评价{|/case|}
+													{|case value="4|6"|}<a href="javascript:refund_cancel({[$order.id]})"><div class="am-btn am-btn-danger anniu">取消退换{|/case|}
+													{|default /|}<a href="javascript:order_delete({[$order.id]})"> <div class="am-btn am-btn-danger anniu">删除订单
+													{|/switch|}
+													</div>
+													</a>
+												</li>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--底部-->
+				{|include file="include/footer" links="[$links]" copyright="$copyright" icp="$icp"|}
+
+			</div>
+			{|include file="include/left"|}
+		</div>
+		<script type="text/javascript">
+			$(function () {
+				let nu={[$order.logistics]},com='{[$order.ec]}';
+				$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"http://api.kuaidi.com/openapi.html",
+					data:{"id":"cdaf30c300181cce262ff751a6dd60a5","com":com,"nu":nu},
+					success:function (data) {
+						if(data.success==true){
+
+							let str="";
+							for(let i=0;i<data.data.length;i++){
+
+								str+=data.data[i]["context"]+'<br/>'+data.data[i]["time"]+'<br/><br/>';
+							}
+
+							$("#logistics").append(str);
+						}else{
+
+						}
+					},
+					error:function () {
+
+					}
+				});
+			})
+			function status(id,status) {
+				$.ajax({
+					type:"post",
+					dataType: "json",
+					url:"__URL__/status",
+					data:{"id":id,"status":status},
+					success:function (data) {
+						layer.msg(data.msg,{time:1000});
+						if(data.status==200){
+							setTimeout(function () {
+								location.reload();
+							},1000);
+						}
+					},
+					error:function () {
+						layer.msg("操作失败",{time:1000});
+					}
+				});
+			}
+
+			function cancel(id) {
+				$.ajax({
+					type:"post",
+					dataType:"json",
+					url:"__URL__/cancel",
+					data:{"id":id},
+					success:function (data) {
+						layer.msg(data.msg,{time:1000});
+						if(data.status==200){
+							setTimeout(function () {
+								location.reload();
+							},1000);
+						}
+					},
+					error:function () {
+						layer.msg("取消失败",{time:1000});
+					}
+				})
+			}
+			function order_delete(id) {
+				$.ajax({
+					type:"post",
+					dataType: "json",
+					url:"__URL__/delete",
+					data:{"id":id},
+					success:function (data) {
+						layer.msg(data.msg,{time:1000});
+						if(data.status==200){
+							setTimeout(function () {
+								location.reload();
+							},1000);
+						}
+					},
+					error:function () {
+						layer.msg("删除失败",{time:1000});
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>购物车页面</title>
+
+    <link href="__INDEX__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/css/cartstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/css/optstyle.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__INDEX__/js/jquery.js"></script>
+    <script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+
+
+
+
+<!--操作页面-->
+
+        <form class="theme-signin" name="loginform" >
+
+            <div class="theme-signin-left">
+
+                <li class="theme-options">
+
+                    <ul>
+                        {|volist id="arr" name="model"|}
+                        {|if condition="$arr eq $selected"|}
+                        <li style="cursor:pointer" class="sku-line selected">{[$arr]}</li>
+                        {|else /|}
+                        <li  style="cursor:pointer" class="sku-line">{[$arr]}</li>
+                        {|/if|}
+
+                        {|/volist|}
+                    </ul>
+                </li>
+
+                <div class="clear"></div>
+                <div class="btn-op">
+                    <button class="btn am-btn am-btn-warning" type="button">确认</button>
+
+                </div>
+            </div>
+        </form>
+
+<!--引导 -->
+<script>
+
+    $(".btn").click(function () {
+      let c=$(".selected").html();
+      if(c.length==0){
+            layer.msg("请选择一个分类",{time:1000});
+      }else {
+          $.ajax({
+              type:"post",
+              dataType:"json",
+              url:"__URL__/model_edit",
+              data:{"id":{[$Think.get.id]},"model":c},
+              success:function (data) {
+                    data=JSON.parse(data);
+                  if(data.status==200){
+                    parent.location.reload();
+                  }else{
+                      layer.msg(data.msg,{time:1000});
+                   }
+              },
+              error:function () {
+                  
+              }
+          });
+      }
+    })
+</script>
+</body>
+
+</html>

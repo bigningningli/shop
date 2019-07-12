@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>个人中心</title>
+
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/css/systyle.css" rel="stylesheet" type="text/css">
+
+	</head>
+
+	<body>
+		<!--头 -->
+		{|include file="include/top" column="[$column]"|}
+
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+					<div class="wrap-left">
+						<div class="wrap-list">
+							<div class="m-user">
+								<!--个人信息 -->
+								<div class="m-bg"></div>
+								<div class="m-userinfo">
+									<div class="m-baseinfo">
+										<a href="__URL__/index">
+											<img src="https://www.gravatar.com/avatar/{[$Think.cookie.email|md5]}?d=wavatar">
+										</a>
+										<em class="s-name">{[$Think.cookie.customer]}</em>
+										<div class="s-prestige am-btn am-round">
+											会员福利</div>
+									</div>
+									<div class="m-right">
+										<div class="m-new">
+											<a href="#"><i class="am-icon-bell-o"></i>消息</a>
+										</div>
+										<div class="m-address">
+											<a href="#" class="i-trigger">我的收货地址</a>
+										</div>
+									</div>
+								</div>
+
+								<!--个人资产-->
+								<div class="m-userproperty">
+									<div class="s-bar">
+										<i class="s-icon"></i>个人资产
+									</div>
+									<p class="m-bonus">
+										<a href="#">
+											<i><img src="__INDEX__/images/bonus.png"/></i>
+											<span class="m-title">红包</span>
+
+										</a>
+									</p>
+									<p class="m-coupon">
+										<a href="#">
+											<i><img src="__INDEX__/images/coupon.png"/></i>
+											<span class="m-title">优惠券</span>
+
+										</a>
+									</p>
+									<p class="m-bill">
+										<a href="#">
+											<i><img src="__INDEX__/images/wallet.png"/></i>
+											<span class="m-title">钱包</span>
+
+										</a>
+									</p>
+									<p class="m-big">
+										<a href="#">
+											<i><img src="__INDEX__/images/day-to.png"/></i>
+											<span class="m-title">签到有礼</span>
+										</a>
+									</p>
+									<p class="m-big">
+										<a href="#">
+											<i><img src="__INDEX__/images/72h.png"/></i>
+											<span class="m-title">72小时发货</span>
+										</a>
+									</p>
+								</div>
+							</div>
+							<div class="box-container-bottom"></div>
+
+							<!--订单 -->
+							<div class="m-order">
+								<div class="s-bar">
+									<i class="s-icon"></i>我的订单
+									<a class="i-load-more-item-shadow" href="__MODULE__/order">全部订单</a>
+								</div>
+								<ul>
+									<li><a href="__MODULE__/order"><i><img src="__INDEX__/images/pay.png"/></i><span>待付款{|if condition="$unpaid neq 0"|}<em class="m-num">{[$unpaid]}</em>{|/if|}</span></a></li>
+									<li><a href="__MODULE__/order"><i><img src="__INDEX__/images/send.png"/></i><span>待发货{|if condition="$unshipped neq 0"|}<em class="m-num">{[$unshipped]}</em>{|/if|}</span></a></li>
+									<li><a href="__MODULE__/order"><i><img src="__INDEX__/images/receive.png"/></i><span>待收货{|if condition="$unreceived neq 0"|}<em class="m-num">{[$unreceived]}</em>{|/if|}</span></a></li>
+									<li><a href="__MODULE__/order"><i><img src="__INDEX__/images/comment.png"/></i><span>待评价{|if condition="$uncomment neq 0"|}<em class="m-num">{[$uncomment]}</em>{|/if|}</span></a></li>
+									<li><a href="__MODULE__/order"><i><img src="__INDEX__/images/refund.png"/></i><span>退换货{|if condition="$replacement neq 0"|}<em class="m-num">{[$replacement]}</em>{|/if|}</span></a></li>
+								</ul>
+							</div>
+							<!--九宫格-->
+							<div class="user-patternIcon">
+								<div class="s-bar">
+									<i class="s-icon"></i>我的常用
+								</div>
+								<ul>
+
+									<a href="#"><li class="am-u-sm-4"><i class="am-icon-shopping-basket am-icon-md"></i><img src="__INDEX__/images/iconbig.png"/><p>购物车</p></li></a>
+									<a href="#"><li class="am-u-sm-4"><i class="am-icon-heart am-icon-md"></i><img src="__INDEX__/images/iconsmall1.png"/><p>我的收藏</p></li></a>
+									<a href="#"><li class="am-u-sm-4"><i class="am-icon-gift am-icon-md"></i><img src="__INDEX__/images/iconsmall0.png"/><p>为你推荐</p></li></a>
+									<a href="#"><li class="am-u-sm-4"><i class="am-icon-pencil am-icon-md"></i><img src="__INDEX__/images/iconsmall3.png"/><p>好评宝贝</p></li></a>
+									<a href="#"><li class="am-u-sm-4"><i class="am-icon-clock-o am-icon-md"></i><img src="__INDEX__/images/iconsmall2.png"/><p>我的足迹</p></li></a>
+								</ul>
+							</div>
+
+
+							<!--收藏夹 -->
+
+								<div class="s-more-btn i-load-more-item" data-screen="0"><i class="am-icon-refresh am-icon-fw"></i>更多</div>
+
+
+
+						</div>
+					</div>
+					<div class="wrap-right">
+
+						<!-- 日历-->
+						<div class="day-list">
+							<div class="s-bar">
+								<a class="i-history-trigger s-icon" href="#"></a>我的日历
+								<a class="i-setting-trigger s-icon" href="#"></a>
+							</div>
+							<div class="s-care s-care-noweather">
+								<div class="s-date">
+									<em>21</em>
+									<span>星期一</span>
+									<span>2015.12</span>
+								</div>
+							</div>
+						</div>
+						<!--新品 -->
+
+					</div>
+				</div>
+				<!--底部-->
+			{|include file="include/footer" links="[$links]" copyright="$copyright" icp="$icp"|}
+
+			</div>
+{|include file="include/left"|}
+		</div>
+		<!--引导 -->
+		<div class="navCir">
+			<li><a href="#"><i class="am-icon-home "></i>首页</a></li>
+			<li><a href="#"><i class="am-icon-list"></i>分类</a></li>
+			<li><a href="#"><i class="am-icon-shopping-basket"></i>购物车</a></li>
+			<li class="active"><a href="#"><i class="am-icon-user"></i>我的</a></li>
+		</div>
+	</body>
+
+</html>

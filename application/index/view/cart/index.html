@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>购物车页面</title>
+
+    <link href="__INDEX__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/basic/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/css/cartstyle.css" rel="stylesheet" type="text/css" />
+    <link href="__INDEX__/css/optstyle.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="__INDEX__/js/jquery.js"></script>
+    <script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+
+<!--顶部导航条 -->
+{|include file="include/top" column="[$column]"|}
+<div class="clear"></div>
+
+<!--购物车 -->
+<div class="concent" style="margin-top: 30px">
+    <div id="cartTable">
+        <div class="cart-table-th">
+            <div class="wp">
+                <div class="th th-chk">
+                    <div id="J_SelectAll1" class="select-all J_SelectAll">
+
+                    </div>
+                </div>
+                <div class="th th-item">
+                    <div class="td-inner">商品信息</div>
+                </div>
+                <div class="th th-price">
+                    <div class="td-inner">单价</div>
+                </div>
+                <div class="th th-amount">
+                    <div class="td-inner">数量</div>
+                </div>
+                <div class="th th-sum">
+                    <div class="td-inner">金额</div>
+                </div>
+                <div class="th th-op">
+                    <div class="td-inner">操作</div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        {|volist id="arr" name="result"|}
+        {|if condition="($key neq 0) && ($arr.gid!=$result[$key-1]['gid'])"|}
+
+    </div>
+</div>
+</tr>
+<tr class="item-list">
+    <div class="bundle  bundle-last ">
+        <div class="bundle-hd">
+            <div class="bd-promos">
+                <div class="bd-has-promo">暂无优惠</div>
+                <div class="act-promo">
+
+                </div>
+                <span class="list-change theme-login">编辑</span>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="bundle-main">
+        {|elseif condition="$key eq 0"|}
+        <tr class="item-list">
+            <div class="bundle  bundle-last ">
+                <div class="bundle-hd">
+                    <div class="bd-promos">
+                        <div class="bd-has-promo">暂无优惠</div>
+                        <div class="act-promo">
+
+                        </div>
+                        <span class="list-change theme-login">编辑</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="bundle-main">
+        {|else/|}
+
+            {|/if|}
+                    <ul class="item-content clearfix">
+                        <li class="td td-chk">
+                            <div class="cart-checkbox ">
+                                <input onclick="reckon(this,{[$arr.price]},{[$arr.num]})" class="check" id="{[$arr.id]}" name="items[]" value="170037950254" type="checkbox">
+                                <label for="J_CheckBox_170037950254"></label>
+                            </div>
+                        </li>
+                        <li class="td td-item">
+                            <div class="item-pic">
+                                <a href="#" target="_blank" data-title="{[$arr.title]}" class="J_MakePoint" data-point="tbcart.8.12">
+                                    <img src="{[$webuploader]}{[$arr.images]}" class="itempic J_ItemImg" width="80px" height="80px"></a>
+                            </div>
+                            <div class="item-info">
+                                <div class="item-basic-info">
+                                    <a href="#" target="_blank" title="{[$arr.title]}" class="item-title J_MakePoint" data-point="tbcart.8.11">{[$arr.title]}</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="td td-info">
+                            <div class="item-props item-props-can">
+                                <span class="sku-line">分类：{[$arr.model]}</span>
+                                <span tabindex="0" class="btn-edit-sku theme-login" onclick="edit_model({[$arr.id]})">修改</span>
+                                <i class="theme-login am-icon-sort-desc"></i>
+                            </div>
+                        </li>
+                        <li class="td td-price">
+                            <div class="item-price price-promo-promo">
+                                <div class="price-content">
+                                    <div class="price-line">
+                                        <em class="price-original">{[$arr.original_price]}</em>
+                                    </div>
+                                    <div class="price-line">
+                                        <em class="J_Price price-now" tabindex="0">{[$arr.price]}</em>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="td td-amount">
+                            <div class="amount-wrapper ">
+                                <div class="item-amount ">
+                                    <div class="sl">
+                                        <input class="am-btn"  onclick="down({[$arr.id]},{[$arr.num]})" name="" type="button" value="-" />
+                                        <input class="text_box" id="num{[$arr.id]}" name=""  oninput="judge({[$arr.id]},this,{[$arr.num]})" type="text" value="{[$arr.num]}" style="width:30px;" />
+                                        <input class="am-btn" onclick="add({[$arr.id]},{[$arr.num]})" name="" type="button" value="+" />
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="td td-sum">
+                            <div class="td-inner">
+                                <em tabindex="0" class="J_ItemSum number" id="sum{[$key]}">{[$arr.price*$arr.num]}</em>
+                            </div>
+                        </li>
+                        <li class="td td-op">
+                            <div class="td-inner">
+
+                                <a href="javascript:void(0);" data-point-url="#" class="delete" onclick="del('{[$arr.id]}')">
+                                    删除</a>
+                            </div>
+                        </li>
+                    </ul>
+
+        {|/volist|}
+                </div>
+            </div>
+        </tr>
+    <div class="clear"></div>
+
+    <div class="float-bar-wrapper">
+        <div id="J_SelectAll2" class="select-all J_SelectAll">
+            <div class="cart-checkbox">
+                <input class="check-all check" id="" name="select-all" value="true" type="checkbox">
+                <label for=""></label>
+            </div>
+            <span>全选</span>
+        </div>
+        <div class="operations">
+            <a href="javascript:void(true)" hidefocus="true" class="deleteAll" onclick="del()">删除</a>
+        </div>
+        <div class="float-bar-right">
+            <div class="amount-sum">
+                <span class="txt">已选商品</span>
+                <em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
+                <div class="arrow-box">
+                    <span class="selected-items-arrow"></span>
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="price-sum">
+                <span class="txt">合计:</span>
+                <strong class="price">¥<em id="J_Total">0.00</em></strong>
+            </div>
+            <div class="btn-area">
+                <a href="javascript:void(0)" onclick="settlement()" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+                    <span>结&nbsp;算</span></a>
+            </div>
+        </div>
+
+    </div>
+
+    {|include file="include/footer" links="[$links]" copyright="$copyright" icp="$icp"|}
+</div>
+
+<!--操作页面-->
+
+
+<!--引导 -->
+<div class="navCir">
+    <li><a href="home.html"><i class="am-icon-home "></i>首页</a></li>
+    <li><a href="sort.html"><i class="am-icon-list"></i>分类</a></li>
+    <li class="active"><a href="shopcart.html"><i class="am-icon-shopping-basket"></i>购物车</a></li>
+    <li><a href="__INDEX__/person/index.html"><i class="am-icon-user"></i>我的</a></li>
+</div>
+<script>
+    function del(id="-1"){
+        if(id=="-1"){
+            id="";
+            $.each($("input:checkbox:checked"),function () {
+                if(this.id!="")
+                    id+=this.id+',';
+            })
+        }
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"__URL__/del",
+                data:{'id':id},
+                success:function (data) {
+                    data=JSON.parse(data);
+                    if(data.status==200){
+                       location.reload();
+
+                    }else{
+                        layer.msg(data.msg,{time:1000});
+                    }
+                },
+                error:function () {
+                    layer.msg("删除失败",{time:1000});
+                }
+            });
+
+    }
+    $(".check-all").click(function () {
+        if($(this).is(':checked')){
+            $('input[type="checkbox"]').each(function(){
+                $(this).prop("checked",true);
+
+            });
+            $("#J_Total").html({[$sum]});
+        }else{
+            $('input[type="checkbox"]').each(function(){
+                $(this).prop("checked",false);
+
+            });
+            $("#J_Total").html(0.00);
+        }
+    });
+    function reckon(x,price,num) {
+            let sum=parseFloat($("#J_Total").html());
+
+        if($(x).prop('checked')){
+
+            $("#J_Total").html(sum+price*num);
+        }else{
+            $("#J_Total").html(sum-price*num);
+        }
+    }
+    function edit_model(id) {
+        layer.open({
+            type: 2,
+            area: ['300px', '250px'],
+            title:"分类",
+            fixed: false,
+            maxmin: true,
+            content: '__URL__/model_show?id='+id,
+        });
+
+
+    }
+    function add(id,n){
+        var t=$("#num"+id);
+
+        $.ajax({
+            type:"post",
+            dataType: "json",
+            url:"__URL__/num_judge",
+            data:{"id":id,"num":parseInt(t.val())+1},
+            success:function (data) {
+                data=JSON.parse(data);
+                if(data.status==500){
+                    t.val(n);
+                    layer.msg(data.msg,{time:1000});
+                }else{
+                    t.val(parseInt(t.val())+1)
+                location.reload();
+                }
+            },
+            error:function () {
+                layer.msg("修改失败",{time:1000});
+            }
+        });
+
+    }
+    function down(id,n){
+        var t=$("#num"+id);
+        $.ajax({
+            type:"post",
+            dataType: "json",
+            url:"__URL__/num_judge",
+            data:{"id":id,"num":parseInt(t.val())-1},
+            success:function (data) {
+                data=JSON.parse(data);
+                if(data.status==500){
+                    t.val(n);
+                    layer.msg(data.msg,{time:1000});
+                }else{
+                    t.val(parseInt(t.val())-1);
+                    if(t.val()<1){
+                        t.val(1);
+                    }
+                    location.reload();
+                }
+            },
+            error:function () {
+                layer.msg("修改失败",{time:1000});
+            }
+        });
+
+    }
+
+    function judge(id,x,n) {
+
+    $.ajax({
+       type:"post",
+       dataType:"json",
+       url:"__URL__/num_judge",
+       data:{"id":id,"num":$(x).val()},
+       success:function (data) {
+           data=JSON.parse(data);
+           if(data.status==500){
+                $(x).val(n);
+                layer.msg(data.msg,{time:1000});
+           }else{
+               location.reload();
+           }
+       },
+       error:function () {
+           layer.msg("修改失败",{time:1000});
+       }
+   });
+}
+
+function settlement() {
+       let id="";
+    $.each($("input:checkbox:checked"),function () {
+        if(this.id!=""){
+            id+=this.id+',';
+        }
+    })
+    if(this.id!=""){
+        id=id.substring(0,id.length-1);
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"__URL__/settlement",
+            data:{"id":id},
+            success:function (data) {
+
+                if(data.status==200){
+                    location.href="__MODULE__/order/pay?id="+data.msg;
+                }else{
+                    layer.msg(data.status,{time:1000});
+                }
+            },
+            error:function () {
+                layer.msg("结算失败",{time:1000});
+            }
+        })
+    }else{
+        layer.msg("请选择要结算的商品",{time:1000});
+    }
+}
+</script>
+</body>
+
+</html>

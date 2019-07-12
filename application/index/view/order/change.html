@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<title>退换货管理</title>
+
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+		<link href="__INDEX__/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="__INDEX__/css/orstyle.css" rel="stylesheet" type="text/css">
+
+		<script src="__INDEX__/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+		<script src="__INDEX__/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<script type="text/javascript" src="__ADMIN__/static/comment.js"></script>
+		<script type="text/javascript" src="__ADMIN__/lib/layer/2.4/layer.js"></script>
+	</head>
+
+	<body>
+		<!--头 -->
+		{|include file="include/top" column="[$column]"|}
+
+			<b class="line"></b>		
+		<div class="center">
+			<div class="col-main">
+				<div class="main-wrap">
+
+					<div class="user-order">
+
+						<!--标题 -->
+						<div class="am-cf am-padding">
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">退换货管理</strong> / <small>Change</small></div>
+						</div>
+						<hr/>
+
+						<div class="am-tabs am-tabs-d2 am-margin" data-am-tabs>
+
+							<ul class="am-avg-sm-2 am-tabs-nav am-nav am-nav-tabs">
+								<li class="am-active"><a href="#tab1">退款管理</a></li>
+
+							</ul>
+
+							<div class="am-tabs-bd">
+									<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+									<div class="order-top">
+										<div class="th th-item">
+											<td class="td-inner">商品</td>
+										</div>
+										<div class="th th-orderprice th-price">
+											<td class="td-inner">交易金额</td>
+										</div>
+										<div class="th th-changeprice th-price">
+											<td class="td-inner">退款金额</td>
+										</div>
+										<div class="th th-status th-moneystatus">
+											<td class="td-inner">交易状态</td>
+										</div>
+										<div class="th th-change th-changebuttom">
+											<td class="td-inner">交易操作</td>
+										</div>
+									</div>
+
+									<div class="order-main">
+										{|volist id="arr" name="result"|}
+										{|if condition="$arr.status eq 4||$arr.status eq 5||$arr.status eq 6"|}
+
+
+										<div class="order-list">
+											<div class="order-title">
+											订单编号：<a href="javascript:;">{[$arr.order_sn]}</a>
+												<span>更新时间：{[$arr.update_time]}</span>
+												<!--    <em>店铺：小桔灯</em>-->
+											</div>
+											<div class="order-content">
+												<div class="order-left">
+													<ul class="item-list">
+														{|if array_key_exists("items",$arr)|}
+														{|foreach $arr.items as $k=>$value|}
+														<li class="td td-item">
+															<div class="item-pic">
+																<a href="#" class="J_MakePoint">
+																	<img src="{[$webuploader]}{[$value.images]}" class="itempic J_ItemImg">
+																</a>
+															</div>
+															<div class="item-info">
+																<div class="item-basic-info">
+																	<a href="#">
+																		<p>{[$value.title]}</p>
+																		<p class="info-little">分类:{[$value.model]} </p>
+																	</a>
+																</div>
+															</div>
+														</li>
+														{|/foreach|}
+														{|/if|}
+														<ul class="td-changeorder">
+															<li class="td td-orderprice">
+																<div class="item-orderprice">
+																	<span>交易金额：</span>{[$arr.money]}
+																</div>
+															</li>
+															<li class="td td-changeprice">
+																<div class="item-changeprice">
+																	<span>退款金额：</span>{[$arr.money]}
+																</div>
+															</li>
+														</ul>
+														<div class="clear"></div>
+													</ul>
+
+													<div class="change move-right">
+														<li class="td td-moneystatus td-status">
+															<div class="item-status">
+																<p class="Mystatus">
+																	{|switch name="$arr.status"|}
+																	{|case value="4"|}申请退换中{|/case|}
+																	{|case value="5"|}退款成功{|/case|}
+																	{|default|}退换未通过</p><p ><a href="__URL__/refund?id={[$arr.id]}">重新申请</a>
+																	{|/switch|}
+																</p>
+
+															</div>
+														</li>
+													</div>
+													<li class="td td-change td-changebutton">
+
+															{|switch name="$arr.status"|}
+
+															{|case value="5"|}<a href="record.html">
+														<div class="am-btn am-btn-danger anniu">删除订单{|/case|}
+															{|default|}<a href="javascript:refund_cancel({[$arr.id]})">
+														<div class="am-btn am-btn-danger anniu">取消退换
+															{|/switch|}
+														</div>
+														</a>
+													</li>
+
+												</div>
+											</div>
+										</div>
+										{|/if|}
+										{|/volist|}
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!--底部-->
+				{|include file="include/footer" links="[$links]" copyright="$copyright" icp="$icp"|}
+			</div>
+
+			{|include file="include/left"|}
+		</div>
+
+	</body>
+
+</html>
